@@ -4,7 +4,10 @@
     {
       "src": "./index.py",
       "use": "@vercel/python",
-      "config": { "runtime": "python3.12" }
+      "config": { 
+        "runtime": "python3.10",
+        "commands": ["pip install --upgrade pip"]
+      }
     }
   ],
   "routes": [
