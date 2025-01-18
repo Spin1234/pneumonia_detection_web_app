@@ -10,6 +10,13 @@ from PIL import Image
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # Allow requests from all origins
 
+app.config['SERVER_NAME'] = 'localhost:5000'  # Optional
+app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # Optional - set session expiration
+
+# Increase worker timeout
+app.config['PROPAGATE_EXCEPTIONS'] = True
+
+
 CLASS_NAMES = ['NORMAL', 'PNEUMONIA']
 
 model = tf.saved_model.load(r"Models/model_cnn_updated/2")
@@ -54,4 +61,4 @@ def predict():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000, threaded=True)
