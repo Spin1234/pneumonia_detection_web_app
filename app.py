@@ -8,19 +8,12 @@ from PIL import Image
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})  # Allow requests from all origins
-
-app.config['SERVER_NAME'] = 'localhost:5000'  # Optional
-app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # Optional - set session expiration
-
-# Increase worker timeout
-app.config['PROPAGATE_EXCEPTIONS'] = True
+CORS(app)
 
 
 CLASS_NAMES = ['NORMAL', 'PNEUMONIA']
 
 model = tf.saved_model.load(r"Models/model_cnn_updated/2")
-
 
 
 def process_image(image):
